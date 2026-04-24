@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Healthcare Support"
+version = "1.0.0"
+id = "artifacts/healthcare-support"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24408
+
+[services.development]
+run = "pnpm --filter @workspace/healthcare-support run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/healthcare-support", "run", "build" ]
+publicDir = "artifacts/healthcare-support/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24408"
+BASE_PATH = "/"
